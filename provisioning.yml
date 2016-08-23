@@ -18,6 +18,7 @@
        - bind9
        - vim
        - tshark
+       - nmap
     - name: Ensure bind9 daemon is disabled and not running
       service: name=bind9 state=stopped enabled=no
     - name: Ensure that bind9 can access the configuration files in the assignments directory (AppArmor)
