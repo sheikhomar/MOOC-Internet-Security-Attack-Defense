@@ -17,9 +17,14 @@ import threading
 import os
 
 def signal_handler(signal, frame):
-    cleanup()
+    print("got CTRL+C")
 
 signal.signal(signal.SIGINT, signal_handler)
+
+class ExerciseState():
+    def __init__(self, net, pid):
+        self.bind_pid = pid;
+        self.net = net;
 
 class SSHTopo(Topo):
     def build(self):
@@ -72,20 +77,24 @@ def run_exercise():
                 host.cmd('/bin/netcat', '-l -p %i &' % randomport)
 
     #Start BIND DNS-server
-    #net["DNS"].popen('named', '-g')
-    net["DNS"].popen('named', '-g', '-c', '/home/vagrant/assignments/week3/named.conf')
+    bind_pid = net["DNS"].popen('named', '-g', '-c', '/home/vagrant/assignments/3-network_attacks/named.conf').pid
 
     #makeTerms([net["B"]], title="DNS")	
 
     #Open terminals
     makeTerms([net["A"]], title="Attacker terminal")
+
+    state = ExerciseState(net, bind_pid)
+    return state
      
-def cleanup():
-    print "cleanup()"
+def cleanup(state):
     copyfile("/tmp/resolv.conf.bak", "/etc/resolv.conf")
+    os.kill(state.bind_pid, signal.SIGTERM)
     os.system('sudo mn -c')
 
 if __name__ == '__main__':
-    run_exercise()
+    state = run_exercise()
+
     print("Exercise started, press CTRL+C to stop and clean up")
     signal.pause()
+    cleanup(state);

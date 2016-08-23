@@ -8,11 +8,11 @@
 
 zone "mooc" {
 	type master;
-	file "/home/vagrant/assignments/week3/db.mooc";
+	file "/home/vagrant/assignments/3-network_attacks/db.mooc";
 };
 
 zone "3.0.10.in-addr.arpa" IN {
 	type master;
-	file "/home/vagrant/assignments/week3/db.3.0.10.in-addr.arpa";
+	file "/home/vagrant/assignments/3-network_attacks/db.3.0.10.in-addr.arpa";
 	allow-update { none; };
 };
