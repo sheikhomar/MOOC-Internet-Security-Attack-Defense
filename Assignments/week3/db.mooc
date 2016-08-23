@@ -4,7 +4,7 @@
 ; Instead, copy it, edit named.conf, and use that copy.
 ;
 $TTL	86400
-@	IN	SOA	week3.  root.week3. (
+@	IN	SOA	mooc.  root.mooc. (
 			      1		; Serial
 			 604800		; Refresh
 			  86400		; Retry
