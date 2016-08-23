@@ -8,7 +8,7 @@
 
 zone "mooc" {
 	type master;
-	file "/home/vagrant/assignments/db.mooc";
+	file "/home/vagrant/assignments/week3/db.mooc";
 };
 
 zone "3.0.10.in-addr.arpa" IN {

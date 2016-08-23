@@ -60,7 +60,7 @@ def run_exercise():
     # These commands affect the host VM itself AND all hosts spawned 
     # by mininet. We only need to do it once, on any host in our topo.
     net['DNS'].cmd('echo "nameserver 10.0.3.1" > /etc/resolv.conf')
-    net['DNS'].cmd('echo "search week3" >> /etc/resolv.conf')
+    net['DNS'].cmd('echo "search mooc" >> /etc/resolv.conf')
 
     # configure resolv.conf on all hosts:
     for i, host in enumerate(net.hosts):
