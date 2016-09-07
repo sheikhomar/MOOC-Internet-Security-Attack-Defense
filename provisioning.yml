@@ -7,6 +7,8 @@
   vars:
       - desired_mininet_version: '2.2.1'
       - mininet_build_directory: '/tmp/mininet_build/'
+      - desired_yaf_version: '2.8.4'
+      - yaf_build_directory: '/tmp/yaf_build/'
   tasks:
     - name: Update apt cache
       apt: update_cache=yes cache_valid_time=3600
@@ -19,6 +21,8 @@
        - vim
        - tshark
        - nmap
+       - nfdump
+       - libglib2.0-dev
     - name: Ensure bind9 daemon is disabled and not running
       service: name=bind9 state=stopped enabled=no
     - name: Ensure that bind9 can access the configuration files in the assignments directory (AppArmor)
@@ -40,6 +44,44 @@
       args:
           chdir: "{{ mininet_build_directory}}"
       when: desired_mininet_version != current_mininet_version.stdout
+    - name: Check YAF version
+      shell: "yaf --version 2>&1 | grep 'yaf version' | sed 's/[a-zA-Z :]*//g'"
+      register: current_yaf_version
+      changed_when: current_yaf_version.stdout != desired_yaf_version
+      ignore_errors: yes
+      failed_when: False
+    - name: Remove YAF build directory (if present)
+      file: path="{{ yaf_build_directory }}{{ desired_yaf_version }}" state=absent
+      when: current_yaf_version.stdout != desired_yaf_version
+    - name: Remove libfixbuf build directory (if present)
+      file: path="{{ yaf_build_directory }}libfixbuf1.7.1" state=absent
+      when: current_yaf_version.stdout != desired_yaf_version
+    - name: Create YAF build directory
+      file: path="{{ yaf_build_directory }}{{ desired_yaf_version }}" state=directory mode=0755
+      when: current_yaf_version.stdout != desired_yaf_version
+    - name: Create libfixbuf build directory
+      file: path="{{ yaf_build_directory }}libfixbuf1.7.1/" state=directory mode=0755
+      when: current_yaf_version.stdout != desired_yaf_version
+    - name: Obtain YAF from netsa
+      get_url:
+        url: http://tools.netsa.cert.org/releases/yaf-{{ desired_yaf_version }}.tar.gz
+        dest: "{{ yaf_build_directory }}{{ desired_yaf_version }}/"
+      when: current_yaf_version.stdout != desired_yaf_version
+    - name: Obtain libfixbuf from netsa
+      get_url:
+        url: http://tools.netsa.cert.org/releases/libfixbuf-1.7.1.tar.gz
+        dest: "{{ yaf_build_directory }}libfixbuf1.7.1/"
+      when: current_yaf_version.stdout != desired_yaf_version
+    - name: Install libfixbuf
+      shell: "tar -zxf * && cd libfixbuf* && ./configure && make && make install && ldconfig"
+      args:
+        chdir: "{{ yaf_build_directory }}libfixbuf1.7.1/"
+      when: current_yaf_version.stdout != desired_yaf_version
+    - name: Install YAF
+      shell: "tar -zxf * && cd yaf* && ./configure && make && make install && ldconfig"
+      args:
+        chdir: "{{ yaf_build_directory }}{{ desired_yaf_version }}/"
+      when: current_yaf_version.stdout != desired_yaf_version
   handlers:
     - name: reload named apparmor profile
       shell: apparmor_parser -r /etc/apparmor.d/usr.sbin.named
