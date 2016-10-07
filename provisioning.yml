@@ -88,6 +88,10 @@
         dest: /tmp/ncrack_0.5-1.deb
     - name: Install ncrack
       apt: deb=/tmp/ncrack_0.5-1.deb
+    - name: Create ncrack root directory
+      file: path="/root/.ncrack" state=directory mode=0755
+    - name: Copy ncrack-services file
+      copy: src=/share/ncrack/ncrack-services dest=/root/.ncrack/ncrack-services remote_src=True
   handlers:
     - name: reload named apparmor profile
       shell: apparmor_parser -r /etc/apparmor.d/usr.sbin.named
