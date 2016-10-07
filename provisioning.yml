@@ -82,6 +82,12 @@
       args:
         chdir: "{{ yaf_build_directory }}{{ desired_yaf_version }}/"
       when: current_yaf_version.stdout != desired_yaf_version
+    - name: Download ncrack 
+      get_url:
+        url: https://s3.eu-central-1.amazonaws.com/ut-dacs-packages/ncrack_0.5-1.deb
+        dest: /tmp/ncrack_0.5-1.deb
+    - name: Install ncrack
+      apt: deb=/tmp/ncrack_0.5-1.deb
   handlers:
     - name: reload named apparmor profile
       shell: apparmor_parser -r /etc/apparmor.d/usr.sbin.named
