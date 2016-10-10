@@ -92,6 +92,17 @@
       file: path="/root/.ncrack" state=directory mode=0755
     - name: Copy ncrack-services file
       copy: src=/share/ncrack/ncrack-services dest=/root/.ncrack/ncrack-services remote_src=True
+    - name: Create users for SSH exercise
+      user: createhome=no name=user1 password=$6$DkM/SoxL$FWJ2fcsh3vRu2N1ktHZDSjSMbAeEkDzzoYQpTVPQYryXMyysDDeASdsI5wm2RBvSq4wAUS01yOL6DBgRtkn.90
+    - name: Create users for SSH exercise
+      user: createhome=no name=user2 password=$6$ebgPND6X$aNoa.tyZEukNYKrkM8w6wO1vGoC0EIYdwU/sLkJ/NAJTcIkqycEcWsmxo.Itci8aQm9A8Y0WPO0PmaLPXSrun0
+    - name: Create users for SSH exercise
+      user: createhome=no name=user3 password=$6$wgpIbhZt$WXwZAxgyMEas/MiSlbp4/6lLGF.ObO9nGNwEX6TZBUjk/1nXRbkMXq6LOrsEgJLbfmDNyR2tu2czJc/YCI2mW/
+    - name: Create users for SSH exercise
+      user: createhome=no name=user4 password=$6$VS3scDlz$Epl2unhm118kOZ9.URmGMoVjYUJMk0.R.yGhwbZ1qxxYubvU6qExRHX5b23g6aDKrOUjJ5Fajxfm84jrKQYc40
+    - name: Create users for SSH exercise
+      user: createhome=no name=user5 password=$6$3oT/DHrS$1rsjGKwfW32De13sUM2g/0DV8QU6bNOcW7WKeFlyKr5MTveXIAs.e1RJgKPlyDKmt1Pfh8qzdlHLS1vKcwvFu.
+
   handlers:
     - name: reload named apparmor profile
       shell: apparmor_parser -r /etc/apparmor.d/usr.sbin.named
