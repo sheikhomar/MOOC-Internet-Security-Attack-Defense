@@ -72,9 +72,9 @@ def run_exercise():
         host.cmd('ip addr add fc00::3:%i/64 dev %s-eth0' % (i, host.name))
         if re.match('T\d', host.name) is not None:
             host.cmd('/usr/sbin/sshd -p %i -6' % (2230 + i*2))
-            for randomport in [int(1024*random.random()) for j in xrange(20 - i)]:
+            for randomport in random.sample(range(1,65535), 20-i):
                 #print "listening on %i" %randomport
-                host.cmd('/bin/netcat', '-l -p %i &' % randomport)
+                host.cmd('/bin/netcat', '-k -l -p %i &' % randomport)
 
     #Start BIND DNS-server
     bind_pid = net["DNS"].popen('named', '-g', '-c', '/home/vagrant/assignments/3-network_attacks/named.conf').pid
