@@ -3,3 +3,7 @@ zone "localhost" {
 	file "/home/vagrant/assignments/DNS/config/db.local";
 };
 
+zone "security.utwente.nl" {
+	type master;
+	file "/home/vagrant/assignments/DNS/config/db.security.utwente.nl";
+};
