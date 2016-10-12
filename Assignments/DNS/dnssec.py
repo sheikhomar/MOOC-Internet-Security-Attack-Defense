@@ -6,6 +6,10 @@ from mininet.util import dumpNodeConnections
 from mininet.log import setLogLevel
 from mininet.cli import CLI
 from mininet.term import makeTerms
+from mininet.clean import Cleanup
+
+import os
+import signal
 
 class DDoSTopo(Topo):
     def build(self):
@@ -45,12 +49,19 @@ def run_exercise():
     #Verify connectivity
     net.pingAll()
 
+    processes = []
+
     #Start BIND DNS-server
-    net["B"].popen('named', '-g', '-c', '/home/vagrant/assignments/DNS/config/named.conf')
+    processes.append(net["B"].popen('named', '-g', '-c', '/home/vagrant/assignments/DNS/config/named.conf'))
 
     #Open terminals
-    makeTerms([net["A"]], title="Attacker terminal")
-    makeTerms([net["D"]], title="Capture terminal")
+    processes.append(makeTerms([net["A"]], title="Attacker terminal")[0])
+    processes.append(makeTerms([net["D"]], title="Capture terminal")[0])
+    raw_input("Press Enter to exit....")
+    for process in processes:
+        process.kill()
+    Cleanup.cleanup()
 
 if __name__ == '__main__':
     run_exercise()
+
