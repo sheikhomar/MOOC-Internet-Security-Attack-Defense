@@ -72,8 +72,9 @@ def run_exercise():
         host.cmd('ip addr add fc00::3:%i/64 dev %s-eth0' % (i, host.name))
         if re.match('T\d', host.name) is not None:
             host.cmd('/usr/sbin/sshd -p %i -6' % (2230 + i*2))
+            print "Host name %s is running SSH on port %i" % (host.name, 2230 + i*2)
             for randomport in random.sample(range(1,65535), 20-i):
-                #print "listening on %i" %randomport
+                print "     Host name %s is listening on port %i" % (host.name,randomport)
                 host.cmd('/bin/netcat', '-k -l -p %i &' % randomport)
 
     #Start BIND DNS-server

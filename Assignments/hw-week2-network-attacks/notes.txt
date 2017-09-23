@@ -1,0 +1,132 @@
+Modify the Python script to output port numbers and hosts:
+
+Host name T1 is running SSH on port 2234
+     Host name T1 is listening on port 57169
+     Host name T1 is listening on port 14620
+     Host name T1 is listening on port 37413
+     Host name T1 is listening on port 48786
+     Host name T1 is listening on port 61733
+     Host name T1 is listening on port 4319
+     Host name T1 is listening on port 15136
+     Host name T1 is listening on port 20275
+     Host name T1 is listening on port 46698
+     Host name T1 is listening on port 15937
+     Host name T1 is listening on port 46201
+     Host name T1 is listening on port 3590
+     Host name T1 is listening on port 20484
+     Host name T1 is listening on port 14490
+     Host name T1 is listening on port 30755
+     Host name T1 is listening on port 35096
+     Host name T1 is listening on port 43744
+     Host name T1 is listening on port 17818
+Host name T2 is running SSH on port 2236
+     Host name T2 is listening on port 47815
+     Host name T2 is listening on port 56981
+     Host name T2 is listening on port 45504
+     Host name T2 is listening on port 13997
+     Host name T2 is listening on port 49428
+     Host name T2 is listening on port 24890
+     Host name T2 is listening on port 14119
+     Host name T2 is listening on port 43618
+     Host name T2 is listening on port 53481
+     Host name T2 is listening on port 11584
+     Host name T2 is listening on port 45299
+     Host name T2 is listening on port 16872
+     Host name T2 is listening on port 25415
+     Host name T2 is listening on port 15427
+     Host name T2 is listening on port 12259
+     Host name T2 is listening on port 26559
+     Host name T2 is listening on port 61114
+Host name T3 is running SSH on port 2238
+     Host name T3 is listening on port 15125
+     Host name T3 is listening on port 24589
+     Host name T3 is listening on port 36533
+     Host name T3 is listening on port 6004
+     Host name T3 is listening on port 29276
+     Host name T3 is listening on port 26430
+     Host name T3 is listening on port 6491
+     Host name T3 is listening on port 20225
+     Host name T3 is listening on port 5491
+     Host name T3 is listening on port 49270
+     Host name T3 is listening on port 54315
+     Host name T3 is listening on port 63860
+     Host name T3 is listening on port 37103
+     Host name T3 is listening on port 18157
+     Host name T3 is listening on port 51627
+     Host name T3 is listening on port 20831
+Host name T4 is running SSH on port 2240
+     Host name T4 is listening on port 54945
+     Host name T4 is listening on port 30213
+     Host name T4 is listening on port 28699
+     Host name T4 is listening on port 57958
+     Host name T4 is listening on port 47546
+     Host name T4 is listening on port 53012
+     Host name T4 is listening on port 9000
+     Host name T4 is listening on port 9241
+     Host name T4 is listening on port 20451
+     Host name T4 is listening on port 53665
+     Host name T4 is listening on port 41727
+     Host name T4 is listening on port 18858
+     Host name T4 is listening on port 17150
+     Host name T4 is listening on port 40440
+     Host name T4 is listening on port 64190
+Host name T5 is running SSH on port 2242
+     Host name T5 is listening on port 62668
+     Host name T5 is listening on port 39177
+     Host name T5 is listening on port 6459
+     Host name T5 is listening on port 50760
+     Host name T5 is listening on port 54538
+     Host name T5 is listening on port 7503
+     Host name T5 is listening on port 4341
+     Host name T5 is listening on port 14849
+     Host name T5 is listening on port 31534
+     Host name T5 is listening on port 24998
+     Host name T5 is listening on port 52061
+     Host name T5 is listening on port 46321
+     Host name T5 is listening on port 19320
+     Host name T5 is listening on port 57833
+
+
+
+
+
+
+
+
+
+
+
+The link local multicast adddress is ff02::1 for IP6 is. This will receive responses from all the hosts:
+
+ping6 -I eth0 ff02::1
+
+root@vagrant:~/assignments# ping6 -I A-eth0 ff02::1
+PING ff02::1(ff02::1) from fe80::45:35ff:fe11:8b98 A-eth0: 56 data bytes
+64 bytes from fe80::45:35ff:fe11:8b98: icmp_seq=1 ttl=64 time=0.023 ms
+64 bytes from fe80::48ff:8aff:feb8:6c42: icmp_seq=1 ttl=64 time=0.789 ms (DUP!)
+64 bytes from fe80::301d:24ff:fef3:8188: icmp_seq=1 ttl=64 time=1.00 ms (DUP!)
+64 bytes from fe80::b02f:f8ff:fe75:4889: icmp_seq=1 ttl=64 time=1.21 ms (DUP!)
+64 bytes from fe80::489b:cff:fe79:afcf: icmp_seq=1 ttl=64 time=1.46 ms (DUP!)
+64 bytes from fe80::84c1:e0ff:fe36:eb1d: icmp_seq=1 ttl=64 time=1.66 ms (DUP!)
+64 bytes from fe80::64eb:f8ff:fe55:93ad: icmp_seq=1 ttl=64 time=1.87 ms (DUP!)
+64 bytes from fe80::781e:3ff:fe2b:b07e: icmp_seq=1 ttl=64 time=2.07 ms (DUP!)
+
+
+
+
+
+root@vagrant:~/assignments# nslookup
+> set type=AAAA
+> target4.mooc
+Server:         10.0.3.1
+Address:        10.0.3.1#53
+
+target4.mooc    has AAAA address fc00::3:5
+
+
+
+How to access SSH on Target 4:
+
+ ssh -p 2240 -6 fc00::3:5
+
+
